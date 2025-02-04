@@ -1,22 +1,29 @@
 @import "tailwindcss";
 
 :root {
-    /* font-family: "Poppins", "sans-serif"; */
+    font-family: "Poppins", "sans-serif";
     box-sizing: border-box;
   }
 
 @theme {
     --color-neutral-text : rgba(17, 25, 39, 1);
     --color-neutral-weak: rgba(108, 115, 127, 1);
+    --color-neutral-active: rgba(210, 214, 219, 1);
     
     --color-base-white: rgba(255, 255, 255, 1);
     
     --color-primary: rgba(10, 86, 187, 1);
     --color-primary-strong: rgba(10, 86, 187, 1);
     
+    --color-success : rgba(3, 152, 85, 1);
+    
     /* bg color */
     --color-bg-medium: rgba(249, 250, 251, 1);
 
     /* border color */
     --color-border-natural: rgba(229, 231, 235, 1);
+    --color-border-strong: rgba(157, 164, 174, 1);
+
+    --shadow-soft: 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+    --shadow-medium: 0px 4px 8px -2px rgba(16, 24, 40, 0.1);
 }

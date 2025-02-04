@@ -3,7 +3,7 @@ import WeekDayFilter from "./WeekDayFilter";
 
 const Navbar = () => {
   return (
-    <>
+    <div className="border-b border-border-natural bg-base-white">
       {/* top navbar */}
       <div className="flex items-center justify-between px-4 py-3">
         <Menu />
@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="">
         <WeekDayFilter />
       </div>
-    </>
+    </div>
   );
 };
 

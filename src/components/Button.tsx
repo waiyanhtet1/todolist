@@ -3,7 +3,7 @@ import { cn } from "../utils/utils";
 type ButtonProps = {
   children?: React.ReactNode;
   size?: "sm" | "md" | "lg";
-  variant: "primary" | "secondary" | "error";
+  variant: "primary" | "secondary" | "todo" | "success" | "pending" | "error";
   IconImg?: string;
   type?: "submit" | "reset" | "button";
   onClick?: () => void;
@@ -23,7 +23,12 @@ const Button = ({
       className={cn(
         "bg-bg-medium rounded-lg cursor-pointer hover:bg-neutral-200 transition duration-300 ease-in-out",
         variant === "primary" && "border border-border-natural",
-        size === "lg" && "w-[312px] h-[48px] px-2 py-3"
+        variant === "todo" && "bg-neutral-active text-base-white",
+        variant === "success" && "bg-success text-base-white",
+        variant === "pending" && "bg-primary text-base-white",
+
+        size === "lg" && "w-[312px] h-[48px] px-2 py-3",
+        size === "sm" && "px-[30px] py-2 w-[100px] h-[35px] text-sm"
       )}
       onClick={onClick}
     >
