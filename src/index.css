@@ -7,6 +7,7 @@
 
 @theme {
     --color-neutral-text : rgba(17, 25, 39, 1);
+    --color-neutral-weak: rgba(108, 115, 127, 1);
     --color-primary: rgba(10, 86, 187, 1);
     
     /* bg color */

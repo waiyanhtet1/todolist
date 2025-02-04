@@ -9,7 +9,6 @@ const LoginPage = () => {
         <p className="text-2xl font-bold text-neutral-text">
           Hi, Welcome Back! 👋
         </p>
-
         <Button
           variant="primary"
           size="lg"
@@ -17,9 +16,7 @@ const LoginPage = () => {
           onClick={() => console.log("clicked")}
         >
           <div className="flex items-center gap-3">
-            <p className="text-neutral-text font-bold ml-8">
-              Sign-in with Google
-            </p>
+            <p className="text-neutral-text font-bold">Sign-in with Google</p>
           </div>
         </Button>
       </div>

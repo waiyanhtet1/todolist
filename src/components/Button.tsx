@@ -27,7 +27,7 @@ const Button = ({
       )}
       onClick={onClick}
     >
-      <div className="flex items-center">
+      <div className="flex items-center justify-center gap-5">
         {IconImg && (
           <img src={IconImg} alt="iconImage" width={26} height={26} />
         )}
