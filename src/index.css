@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
+:root {
+    /* font-family: "Poppins", "sans-serif"; */
+    box-sizing: border-box;
+  }
+
 @theme {
     --color-neutral-text : rgba(17, 25, 39, 1);
-    --color-midnight: #121063;
-    --color-tahiti: #3ab7bf;
-    --color-bermuda: #78dcca;
+    --color-primary: rgba(10, 86, 187, 1);
+    
+    /* bg color */
+    --color-bg-medium: rgba(249, 250, 251, 1);
+
+    /* border color */
+    --color-border-natural: rgba(229, 231, 235, 1);
 }
