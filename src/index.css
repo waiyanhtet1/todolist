@@ -8,7 +8,11 @@
 @theme {
     --color-neutral-text : rgba(17, 25, 39, 1);
     --color-neutral-weak: rgba(108, 115, 127, 1);
+    
+    --color-base-white: rgba(255, 255, 255, 1);
+    
     --color-primary: rgba(10, 86, 187, 1);
+    --color-primary-strong: rgba(10, 86, 187, 1);
     
     /* bg color */
     --color-bg-medium: rgba(249, 250, 251, 1);
