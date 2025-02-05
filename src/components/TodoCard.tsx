@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { cn } from "../utils/utils";
 import Button from "./Button";
 import DiamondSquare from "./DiamondSquare";
@@ -9,18 +10,38 @@ type TodoCardProps = {
 };
 
 const TodoCard = ({ variant, text, title }: TodoCardProps) => {
+  const [currentStatus, setCurrentStatus] = useState<
+    "todo" | "processing" | "complete"
+  >(variant);
+
+  const handleStatusChange = () => {
+    switch (currentStatus) {
+      case "todo":
+        setCurrentStatus("processing");
+        break;
+      case "processing":
+        setCurrentStatus("complete");
+        break;
+      case "complete":
+        setCurrentStatus("todo");
+        break;
+    }
+  };
+
+  console.log("currentStatus", currentStatus);
+
   return (
     <div
       className={cn(
         "bg-base-white border-l-4 shadow-medium p-4 rounded-sm",
-        variant === "todo" && "border-border-strong",
-        variant === "processing" && "border-primary",
-        variant === "complete" && "border-success"
+        currentStatus === "todo" && "border-border-strong",
+        currentStatus === "processing" && "border-primary",
+        currentStatus === "complete" && "border-success"
       )}
     >
       <div className="flex items-baseline justify-between">
         <div className="flex items-baseline gap-2">
-          <DiamondSquare variant={variant} />
+          <DiamondSquare variant={currentStatus} />
           <div className="flex flex-col gap-1">
             <p className="text-neutral-text">{title}</p>
             <p className="text-neutral-weak text-xs">
@@ -31,16 +52,17 @@ const TodoCard = ({ variant, text, title }: TodoCardProps) => {
 
         <Button
           variant={
-            variant === "todo"
+            currentStatus === "todo"
               ? "todo"
-              : variant === "complete"
+              : currentStatus === "complete"
               ? "success"
               : "pending"
           }
+          onClick={handleStatusChange}
         >
-          {variant === "todo"
+          {currentStatus === "todo"
             ? "Todo"
-            : variant === "complete"
+            : currentStatus === "complete"
             ? "Complete"
             : "Processing"}
         </Button>

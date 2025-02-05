@@ -9,7 +9,7 @@ const HomePage = () => {
       <div className="overflow-scroll h-[73%] no-scrollbar">
         <CardList />
       </div>
-      <Footer />
+      <Footer link="/new" />
     </div>
   );
 };
