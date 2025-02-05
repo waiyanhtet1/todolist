@@ -3,10 +3,10 @@ import TodoCard from "./TodoCard";
 const CardList = () => {
   return (
     <div className="flex flex-col gap-4 p-4 bg-neutral-50">
-      {Array.from({ length: 10 }).map((_, i) => (
+      {Array.from({ length: 15 }).map((_, i) => (
         <TodoCard
           key={i}
-          variant="todo"
+          variant="complete"
           title={`Marketing Campign UIs ${i + 1}`}
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla enim"
         />

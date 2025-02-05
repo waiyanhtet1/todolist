@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <div className="relative h-screen overflow-hidden">
       <Navbar />
-      <div className="overflow-scroll h-[70%]">
+      <div className="overflow-scroll h-[73%] no-scrollbar">
         <CardList />
       </div>
       <Footer />

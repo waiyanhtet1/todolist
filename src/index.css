@@ -5,6 +5,10 @@
     box-sizing: border-box;
   }
 
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
 @theme {
     --color-neutral-text : rgba(17, 25, 39, 1);
     --color-neutral-weak: rgba(108, 115, 127, 1);
@@ -14,6 +18,7 @@
     
     --color-primary: rgba(10, 86, 187, 1);
     --color-primary-strong: rgba(10, 86, 187, 1);
+    --color-primary-active:rgba(191, 219, 254, 1);
     
     --color-success : rgba(3, 152, 85, 1);
     
@@ -26,4 +31,5 @@
 
     --shadow-soft: 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
     --shadow-medium: 0px 4px 8px -2px rgba(16, 24, 40, 0.1);
+
 }
