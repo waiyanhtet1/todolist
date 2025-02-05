@@ -1,9 +1,14 @@
 import DateTimeInput from "../components/DateTimeInput";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import NotificationControl from "../components/NotificationControl";
 import TodoInput from "../components/TodoInput";
 
 const CreateNewPage = () => {
+  const handleOnCreateNew = () => {
+    console.log("create new todo");
+  };
+
   return (
     <div className="relative h-screen overflow-hidden">
       <Header />
@@ -12,9 +17,7 @@ const CreateNewPage = () => {
         <DateTimeInput />
         <NotificationControl />
       </div>
-      <div className="absolute bottom-0 w-full h-[55px] bg-base-white text-primary flex items-center justify-center border-t border-border-natural cursor-pointer hover:bg-border-natural transition duration-300 ease-in-out">
-        Add Task
-      </div>
+      <Footer actionType="new" onClick={handleOnCreateNew} />
     </div>
   );
 };

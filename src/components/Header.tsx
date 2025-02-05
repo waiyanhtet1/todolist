@@ -1,9 +1,10 @@
 import { ChevronLeft, FilePen } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { cn } from "../utils/utils";
 
 const Header = () => {
   const { pathname } = useLocation();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const handleNavigateBack = () => {
@@ -21,6 +22,7 @@ const Header = () => {
       </p>
       <p className="text-neutral-text font-medium">
         {pathname === "/new" && "New Task"}
+        {id && "Task Detail"}
       </p>
       <p className={`cursor-pointer ${pathname === "/new" && "invisible"}`}>
         <FilePen />

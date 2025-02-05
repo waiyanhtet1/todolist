@@ -7,6 +7,7 @@ type DateTimeSelectProps = {
   time: string;
   setDate: (value: Date) => void;
   setTime: (value: string) => void;
+  isDisabled: boolean;
 };
 
 const DateTimeSelect = ({
@@ -15,6 +16,7 @@ const DateTimeSelect = ({
   time,
   setDate,
   setTime,
+  isDisabled,
 }: DateTimeSelectProps) => {
   return (
     <div className="flex items-center justify-between px-4 pb-3 border-b border-border-natural">
@@ -28,6 +30,7 @@ const DateTimeSelect = ({
           className="outline-none px-3 py-2 bg-primary-active text-neutral-text text-sm rounded-md text-center w-[120px] h-[35px]"
           popperPlacement="bottom-start"
           portalId="root-portal"
+          disabled={isDisabled}
         />
 
         <input
@@ -39,6 +42,7 @@ const DateTimeSelect = ({
           className="outline-none px-3 py-2 bg-primary-active text-neutral-text text-sm rounded-md text-center w-[120px] h-[35px]"
           value={time}
           onChange={(e) => setTime(e.target.value)}
+          disabled={isDisabled}
         />
       </div>
     </div>

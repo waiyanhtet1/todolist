@@ -21,6 +21,8 @@
     --color-primary-active:rgba(191, 219, 254, 1);
     
     --color-success : rgba(3, 152, 85, 1);
+
+    --color-error: rgba(255, 56, 43, 1);
     
     /* bg color */
     --color-bg-medium: rgba(249, 250, 251, 1);

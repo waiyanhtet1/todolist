@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { cn } from "../utils/utils";
 import Button from "./Button";
 import DiamondSquare from "./DiamondSquare";
@@ -7,9 +8,12 @@ type TodoCardProps = {
   variant: "todo" | "processing" | "complete";
   title: string;
   text: string;
+  link: string;
 };
 
-const TodoCard = ({ variant, text, title }: TodoCardProps) => {
+const TodoCard = ({ variant, text, title, link }: TodoCardProps) => {
+  const navigate = useNavigate();
+
   const [currentStatus, setCurrentStatus] = useState<
     "todo" | "processing" | "complete"
   >(variant);
@@ -28,8 +32,6 @@ const TodoCard = ({ variant, text, title }: TodoCardProps) => {
     }
   };
 
-  console.log("currentStatus", currentStatus);
-
   return (
     <div
       className={cn(
@@ -40,7 +42,10 @@ const TodoCard = ({ variant, text, title }: TodoCardProps) => {
       )}
     >
       <div className="flex items-baseline justify-between">
-        <div className="flex items-baseline gap-2">
+        <div
+          className="flex items-baseline gap-2"
+          onClick={() => navigate(`/${link}`)}
+        >
           <DiamondSquare variant={currentStatus} />
           <div className="flex flex-col gap-1">
             <p className="text-neutral-text">{title}</p>

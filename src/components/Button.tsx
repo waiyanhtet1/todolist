@@ -7,6 +7,7 @@ type ButtonProps = {
   IconImg?: string;
   type?: "submit" | "reset" | "button";
   onClick?: () => void;
+  isDisabled?: boolean;
 };
 
 const Button = ({
@@ -16,10 +17,12 @@ const Button = ({
   IconImg,
   variant,
   onClick,
+  isDisabled,
 }: ButtonProps) => {
   return (
     <button
       type={type}
+      disabled={isDisabled}
       className={cn(
         "bg-bg-medium rounded-lg cursor-pointer hover:bg-neutral-200 transition duration-300 ease-in-out",
         variant === "primary" && "border border-border-natural",

@@ -1,7 +1,11 @@
 import { useState } from "react";
 
-const NotificationControl = () => {
-  const [enabled, setEnabled] = useState(false);
+type NotificationControlProps = {
+  isDisabled?: boolean;
+};
+
+const NotificationControl = ({ isDisabled }: NotificationControlProps) => {
+  const [enabled, setEnabled] = useState(true);
 
   return (
     <div className="flex items-center justify-between shadow-medium px-5 py-3 rounded-sm">
@@ -9,6 +13,7 @@ const NotificationControl = () => {
       <div>
         <label className="relative inline-flex items-center cursor-pointer">
           <input
+            disabled={isDisabled}
             type="checkbox"
             className="sr-only peer"
             checked={enabled}
