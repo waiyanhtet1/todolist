@@ -1,4 +1,6 @@
 import clsx from "clsx";
+import { format } from "date-fns";
+import moment from "moment-timezone";
 import { twMerge } from "tailwind-merge";
 
 type Input =
@@ -32,4 +34,14 @@ export const formatDateString = (date: Date) => {
     day: "2-digit",
     year: "numeric",
   });
+};
+
+export const changeDateTimeStamp = (date: Date) => {
+  return format(date, "yyyy-MM-dd'T'HH:mm:ssXXX");
+};
+
+export const formattedDateString = (date: Date) => {
+  return moment(date)
+    .tz("Asia/Yangon")
+    .format("ddd MMM DD YYYY HH:mm:ss [GMT]Z (z)");
 };

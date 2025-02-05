@@ -1,15 +1,24 @@
+import { useQuery } from "@apollo/client";
+import { GET_TASK_LIST } from "../graphql/queries/taskQueries";
+import { TaskType } from "../types/taskTypes";
+import Loading from "./Loading";
 import TodoCard from "./TodoCard";
 
 const CardList = () => {
+  const { loading, error, data } = useQuery(GET_TASK_LIST);
+
+  if (loading) return <Loading />;
+  if (error) return "error";
+
   return (
     <div className="flex flex-col gap-4 p-4 bg-neutral-50">
-      {Array.from({ length: 15 }).map((_, i) => (
+      {data.task.map((item: TaskType) => (
         <TodoCard
-          key={i}
-          link={i.toString()}
-          variant="todo"
-          title={`Marketing Campign UIs ${i + 1}`}
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla enim"
+          key={item.id}
+          link={item.id}
+          variant={item.status}
+          title={item.title}
+          text={item.text}
         />
       ))}
     </div>

@@ -1,18 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
+import { formattedDateString } from "../utils/utils";
 import Button from "./Button";
 import DateTimeSelect from "./DateTimeSelect";
 
 type DateTimeInputProps = {
   isDisabled?: boolean;
+  inputStartDate?: Date;
+  inputEndDate?: Date;
 };
 
-const DateTimeInput = ({ isDisabled }: DateTimeInputProps) => {
+const DateTimeInput = ({
+  isDisabled,
+  inputStartDate,
+  inputEndDate,
+}: DateTimeInputProps) => {
   const [startDate, setStartDate] = useState(new Date());
   const [startTime, setStartTime] = useState("10:00");
-
   const [endDate, setEndDate] = useState(new Date());
   const [endTime, setEndTime] = useState("10:00");
+
+  useEffect(() => {
+    if (inputStartDate) {
+      const formattedDate = formattedDateString(inputStartDate);
+      setStartDate(new Date(formattedDate));
+    }
+    if (inputEndDate) {
+      const formattedDate = formattedDateString(inputEndDate);
+      setEndDate(new Date(formattedDate));
+    }
+  }, [inputStartDate, inputEndDate]);
 
   const [currentStatus, setCurrentStatus] = useState<
     "todo" | "processing" | "complete"
@@ -32,11 +49,11 @@ const DateTimeInput = ({ isDisabled }: DateTimeInputProps) => {
     }
   };
 
-  // console.log("startDate", formatDateString(startDate));
-  // console.log("startTime", formatTime12Hour(startTime));
+  console.log("startDate", startDate);
+  console.log("startTime", startTime);
 
-  // console.log("endDate", formatDateString(endDate));
-  // console.log("endTime", formatTime12Hour(endTime));
+  console.log("endDate", endDate);
+  console.log("endTime", endTime);
 
   return (
     <div className="flex flex-col gap-2 shadow-medium p-3 rounded-sm">
