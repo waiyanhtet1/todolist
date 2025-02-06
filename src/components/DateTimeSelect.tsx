@@ -5,8 +5,8 @@ type DateTimeSelectProps = {
   title: string;
   date: Date;
   time: string;
-  setDate: (value: Date) => void;
-  setTime: (value: string) => void;
+  setDate?: (value: Date) => void;
+  setTime?: (value: string) => void;
   isDisabled: boolean;
 };
 
@@ -25,7 +25,9 @@ const DateTimeSelect = ({
       <div className="relative flex items-center gap-1">
         <DatePicker
           selected={date}
-          onChange={(date) => setDate(date as Date)}
+          onChange={(date) => {
+            if (setDate) setDate(date as Date);
+          }}
           dateFormat="MMM dd, yyyy"
           className="outline-none px-3 py-2 bg-primary-active text-neutral-text text-sm rounded-md text-center w-[120px] h-[35px]"
           popperPlacement="bottom-start"
@@ -41,7 +43,9 @@ const DateTimeSelect = ({
           max="18:00"
           className="outline-none px-3 py-2 bg-primary-active text-neutral-text text-sm rounded-md text-center w-[120px] h-[35px]"
           value={time}
-          onChange={(e) => setTime(e.target.value)}
+          onChange={(e) => {
+            if (setTime) setTime(e.target.value);
+          }}
           disabled={isDisabled}
         />
       </div>

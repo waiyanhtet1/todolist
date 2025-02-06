@@ -27,3 +27,11 @@ export const INSERT_TASK = gql`
     }
   }
 `;
+
+export const DELETE_TASK = gql`
+  mutation DELETE_TASK($id: uuid!) {
+    delete_task_by_pk(id: $id) {
+      id
+    }
+  }
+`;

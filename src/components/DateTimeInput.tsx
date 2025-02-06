@@ -6,15 +6,15 @@ import DateTimeSelect from "./DateTimeSelect";
 type DateTimeInputProps = {
   isDisabled?: boolean;
   startDate: Date;
-  setStartDate: (value: Date) => void;
+  setStartDate?: (value: Date) => void;
   endDate: Date;
-  setEndDate: (value: Date) => void;
+  setEndDate?: (value: Date) => void;
   startTime: string;
-  setStartTime: (value: string) => void;
+  setStartTime?: (value: string) => void;
   endTime: string;
-  setEndTime: (value: string) => void;
+  setEndTime?: (value: string) => void;
   status: StatusType;
-  setStatus: (value: StatusType) => void;
+  setStatus?: (value: StatusType) => void;
 };
 
 const DateTimeInput = ({
@@ -56,17 +56,18 @@ const DateTimeInput = ({
   // }, [status]);
 
   const handleStatusChange = () => {
-    switch (status) {
-      case "todo":
-        setStatus("processing");
-        break;
-      case "processing":
-        setStatus("complete");
-        break;
-      case "complete":
-        setStatus("todo");
-        break;
-    }
+    if (setStatus)
+      switch (status) {
+        case "todo":
+          setStatus("processing");
+          break;
+        case "processing":
+          setStatus("complete");
+          break;
+        case "complete":
+          setStatus("todo");
+          break;
+      }
   };
 
   return (

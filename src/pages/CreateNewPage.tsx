@@ -8,6 +8,7 @@ import Loading from "../components/Loading";
 import NotificationControl from "../components/NotificationControl";
 import TodoInput from "../components/TodoInput";
 import { INSERT_TASK } from "../graphql/mutations/taskMutations";
+import { GET_TASK_LIST } from "../graphql/queries/taskQueries";
 import { StatusType } from "../types/taskTypes";
 
 const CreateNewPage = () => {
@@ -32,7 +33,6 @@ const CreateNewPage = () => {
       setErrorMessage((prev) => ({ ...prev, title: true }));
     if (text.length === 0) setErrorMessage((prev) => ({ ...prev, text: true }));
     else {
-      console.log("create new todo");
       try {
         await insertTask({
           variables: {
@@ -45,6 +45,7 @@ const CreateNewPage = () => {
             status,
             notification: isNotiOn,
           },
+          refetchQueries: [GET_TASK_LIST],
         });
         navigate("/");
       } catch (error) {
@@ -53,7 +54,6 @@ const CreateNewPage = () => {
     }
   };
 
-  // if (loading) return <Loading />;
   if (error) return "error";
 
   console.log("startDate", startDate);
