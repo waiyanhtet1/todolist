@@ -9,6 +9,11 @@
     display: none;
   }
 
+  .error-message {
+    color: rgba(255, 56, 43, 1);
+    font-size: 12px;
+  }
+
 @theme {
     --color-neutral-text : rgba(17, 25, 39, 1);
     --color-neutral-weak: rgba(108, 115, 127, 1);

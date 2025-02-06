@@ -5,7 +5,9 @@ import Loading from "./Loading";
 import TodoCard from "./TodoCard";
 
 const CardList = () => {
-  const { loading, error, data } = useQuery(GET_TASK_LIST);
+  const { loading, error, data } = useQuery(GET_TASK_LIST, {
+    fetchPolicy: "network-only",
+  });
 
   if (loading) return <Loading />;
   if (error) return "error";

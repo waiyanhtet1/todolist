@@ -1,59 +1,73 @@
-import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { formattedDateString } from "../utils/utils";
+import { StatusType } from "../types/taskTypes";
 import Button from "./Button";
 import DateTimeSelect from "./DateTimeSelect";
 
 type DateTimeInputProps = {
   isDisabled?: boolean;
-  inputStartDate?: Date;
-  inputEndDate?: Date;
+  startDate: Date;
+  setStartDate: (value: Date) => void;
+  endDate: Date;
+  setEndDate: (value: Date) => void;
+  startTime: string;
+  setStartTime: (value: string) => void;
+  endTime: string;
+  setEndTime: (value: string) => void;
+  status: StatusType;
+  setStatus: (value: StatusType) => void;
 };
 
 const DateTimeInput = ({
   isDisabled,
-  inputStartDate,
-  inputEndDate,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  startTime,
+  setStartTime,
+  endTime,
+  setEndTime,
+  status,
+  setStatus,
 }: DateTimeInputProps) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [startTime, setStartTime] = useState("10:00");
-  const [endDate, setEndDate] = useState(new Date());
-  const [endTime, setEndTime] = useState("10:00");
+  // const [startDate, setStartDate] = useState(new Date());
+  // const [startTime, setStartTime] = useState("10:00");
+  // const [endDate, setEndDate] = useState(new Date());
+  // const [endTime, setEndTime] = useState("10:00");
+  // const [currentStatus, setCurrentStatus] = useState<
+  //   "todo" | "processing" | "complete"
+  // >("todo");
 
-  useEffect(() => {
-    if (inputStartDate) {
-      const formattedDate = formattedDateString(inputStartDate);
-      setStartDate(new Date(formattedDate));
-    }
-    if (inputEndDate) {
-      const formattedDate = formattedDateString(inputEndDate);
-      setEndDate(new Date(formattedDate));
-    }
-  }, [inputStartDate, inputEndDate]);
+  // useEffect(() => {
+  //   if (inputStartDate) {
+  //     const formattedDate = formattedDateString(inputStartDate);
+  //     setStartDate(new Date(formattedDate));
+  //   }
+  //   if (inputEndDate) {
+  //     const formattedDate = formattedDateString(inputEndDate);
+  //     setEndDate(new Date(formattedDate));
+  //   }
+  //   if (inputStartTime) setStartTime(inputStartTime);
 
-  const [currentStatus, setCurrentStatus] = useState<
-    "todo" | "processing" | "complete"
-  >("todo");
+  //   if (inputEndTime) setEndTime(inputEndTime);
+
+  //   if (inputStatus) setCurrentStatus(inputStatus);
+  //   if (status) setCurrentStatus(status);
+  // }, [status]);
 
   const handleStatusChange = () => {
-    switch (currentStatus) {
+    switch (status) {
       case "todo":
-        setCurrentStatus("processing");
+        setStatus("processing");
         break;
       case "processing":
-        setCurrentStatus("complete");
+        setStatus("complete");
         break;
       case "complete":
-        setCurrentStatus("todo");
+        setStatus("todo");
         break;
     }
   };
-
-  console.log("startDate", startDate);
-  console.log("startTime", startTime);
-
-  console.log("endDate", endDate);
-  console.log("endTime", endTime);
 
   return (
     <div className="flex flex-col gap-2 shadow-medium p-3 rounded-sm">
@@ -79,17 +93,17 @@ const DateTimeInput = ({
         <Button
           isDisabled={isDisabled as boolean}
           variant={
-            currentStatus === "todo"
+            status === "todo"
               ? "todo"
-              : currentStatus === "complete"
+              : status === "complete"
               ? "success"
               : "pending"
           }
           onClick={handleStatusChange}
         >
-          {currentStatus === "todo"
+          {status === "todo"
             ? "Todo"
-            : currentStatus === "complete"
+            : status === "complete"
             ? "Complete"
             : "Processing"}
         </Button>

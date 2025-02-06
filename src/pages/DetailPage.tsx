@@ -13,6 +13,7 @@ const DetailPage = () => {
   const { id } = useParams();
 
   const { loading, error, data } = useQuery(GET_SINGLE_TASK, {
+    fetchPolicy: "network-only",
     variables: { id },
   });
 
@@ -20,20 +21,18 @@ const DetailPage = () => {
   const [detailData, setDetailData] = useState<TaskType | null>(null);
 
   useEffect(() => {
+    if (data) setDetailData(data.task_by_pk);
     if (id) setIsDisabled(true);
-  }, [id]);
+  }, [data, id]);
 
   const handleOnDelete = () => {
     console.log("delete todo");
   };
-  useEffect(() => {
-    if (data) {
-      setDetailData(data.task_by_pk);
-    }
-  }, [data]);
 
   if (loading) return <Loading />;
   if (error) return "error";
+
+  console.log(detailData);
 
   return (
     <div className="relative h-screen overflow-hidden">
@@ -44,9 +43,15 @@ const DetailPage = () => {
         <DateTimeInput
           inputStartDate={detailData?.startDate}
           inputEndDate={detailData?.endDate}
+          inputStartTime={detailData?.startTime}
+          inputEndTime={detailData?.endTime}
+          inputStatus={detailData?.status}
           isDisabled={isDisabled}
         />
-        <NotificationControl isDisabled={isDisabled} />
+        <NotificationControl
+          isDisabled={isDisabled}
+          inputNotiStatus={detailData?.notification}
+        />
 
         <p className="shadow-medium px-5 py-3 rounded-sm text-neutral-weak text-xs">
           {detailData?.text}

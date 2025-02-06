@@ -9,3 +9,5 @@ export type TaskType = {
   status: "todo" | "processing" | "complete";
   notification: boolean;
 };
+
+export type StatusType = "todo" | "processing" | "complete";

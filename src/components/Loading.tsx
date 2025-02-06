@@ -1,6 +1,14 @@
-const Loading = () => {
+type LoadingProps = {
+  type?: "screen" | "button";
+};
+
+const Loading = ({ type = "screen" }: LoadingProps) => {
   return (
-    <div className="flex items-center justify-center h-full">
+    <div
+      className={`flex items-center justify-center ${
+        type === "screen" && "h-full"
+      }`}
+    >
       <svg
         width={24}
         height={24}
