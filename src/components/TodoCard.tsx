@@ -1,52 +1,62 @@
-import { useState } from "react";
+import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { UPDATE_TASK_STATUS } from "../graphql/mutations/taskMutations";
+import { GET_TASK_LIST } from "../graphql/queries/taskQueries";
+import { StatusType } from "../types/taskTypes";
 import { cn } from "../utils/utils";
 import Button from "./Button";
 import DiamondSquare from "./DiamondSquare";
+import Loading from "./Loading";
 
 type TodoCardProps = {
-  variant: "todo" | "processing" | "complete";
   title: string;
   text: string;
-  link: string;
+  id: string;
+  status: StatusType;
 };
 
-const TodoCard = ({ variant, text, title, link }: TodoCardProps) => {
+const TodoCard = ({ status, text, title, id }: TodoCardProps) => {
   const navigate = useNavigate();
 
-  const [currentStatus, setCurrentStatus] = useState<
-    "todo" | "processing" | "complete"
-  >(variant);
+  // const [currentStatus, setCurrentStatus] = useState<
+  //   "todo" | "processing" | "complete"
+  // >(variant);
 
-  const handleStatusChange = () => {
-    switch (currentStatus) {
-      case "todo":
-        setCurrentStatus("processing");
-        break;
-      case "processing":
-        setCurrentStatus("complete");
-        break;
-      case "complete":
-        setCurrentStatus("todo");
-        break;
-    }
+  const [updateTaskStatus, { loading, error }] =
+    useMutation(UPDATE_TASK_STATUS);
+
+  function changeStatus() {
+    if (status === "todo") return "processing";
+    if (status === "processing") return "complete";
+    if (status === "complete") return "todo";
+  }
+
+  const handleStatusChange = async () => {
+    const updatedStatus = changeStatus();
+
+    await updateTaskStatus({
+      variables: { id, status: updatedStatus },
+      refetchQueries: [GET_TASK_LIST],
+    });
   };
+
+  if (error) return "Error";
 
   return (
     <div
       className={cn(
         "bg-base-white border-l-4 shadow-medium p-4 rounded-sm",
-        currentStatus === "todo" && "border-border-strong",
-        currentStatus === "processing" && "border-primary",
-        currentStatus === "complete" && "border-success"
+        status === "todo" && "border-border-strong",
+        status === "processing" && "border-primary",
+        status === "complete" && "border-success"
       )}
     >
       <div className="flex items-baseline justify-between">
         <div
           className="flex items-baseline gap-2"
-          onClick={() => navigate(`/${link}`)}
+          onClick={() => navigate(`/${id}`)}
         >
-          <DiamondSquare variant={currentStatus} />
+          <DiamondSquare variant={status} />
           <div className="flex flex-col gap-1">
             <p className="text-neutral-text">{title}</p>
             <p className="text-neutral-weak text-xs">
@@ -55,22 +65,26 @@ const TodoCard = ({ variant, text, title, link }: TodoCardProps) => {
           </div>
         </div>
 
-        <Button
-          variant={
-            currentStatus === "todo"
-              ? "todo"
-              : currentStatus === "complete"
-              ? "success"
-              : "pending"
-          }
-          onClick={handleStatusChange}
-        >
-          {currentStatus === "todo"
-            ? "Todo"
-            : currentStatus === "complete"
-            ? "Complete"
-            : "Processing"}
-        </Button>
+        {loading ? (
+          <Loading type="button" />
+        ) : (
+          <Button
+            variant={
+              status === "todo"
+                ? "todo"
+                : status === "complete"
+                ? "success"
+                : "pending"
+            }
+            onClick={handleStatusChange}
+          >
+            {status === "todo"
+              ? "Todo"
+              : status === "complete"
+              ? "Complete"
+              : "Processing"}
+          </Button>
+        )}
       </div>
     </div>
   );

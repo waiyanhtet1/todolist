@@ -35,3 +35,11 @@ export const DELETE_TASK = gql`
     }
   }
 `;
+
+export const UPDATE_TASK_STATUS = gql`
+  mutation UPDATE_TASK_STATUS($id: uuid!, $status: String!) {
+    update_task_by_pk(pk_columns: { id: $id }, _set: { status: $status }) {
+      id
+    }
+  }
+`;

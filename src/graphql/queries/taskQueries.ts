@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_TASK_LIST = gql`
   query GET_TASK_LIST {
-    task(order_by: { created_at: desc }) {
+    task(order_by: { created_at: desc, updated_at: desc }) {
       id
       title
       text

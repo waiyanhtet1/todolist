@@ -15,8 +15,8 @@ const CardList = () => {
       {data.task.map((item: TaskType) => (
         <TodoCard
           key={item.id}
-          link={item.id}
-          variant={item.status}
+          id={item.id}
+          status={item.status}
           title={item.title}
           text={item.text}
         />
