@@ -29,6 +29,7 @@ const Button = ({
         variant === "todo" && "bg-neutral-active text-base-white",
         variant === "success" && "bg-success text-base-white",
         variant === "pending" && "bg-primary text-base-white",
+        variant === "error" && "bg-error text-base-white",
 
         size === "lg" && "w-[312px] h-[48px] px-2 py-3",
         size === "sm" && "px-[30px] py-2 w-[100px] h-[35px] text-sm"

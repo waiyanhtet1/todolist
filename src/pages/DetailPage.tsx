@@ -5,6 +5,7 @@ import DateTimeInput from "../components/DateTimeInput";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
+import Modal from "../components/Modal";
 import NotificationControl from "../components/NotificationControl";
 import { DELETE_TASK } from "../graphql/mutations/taskMutations";
 import { GET_SINGLE_TASK, GET_TASK_LIST } from "../graphql/queries/taskQueries";
@@ -21,6 +22,7 @@ const DetailPage = () => {
     useMutation(DELETE_TASK);
 
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
   const [detailData, setDetailData] = useState<TaskType | null>(null);
 
   useEffect(() => {
@@ -63,10 +65,20 @@ const DetailPage = () => {
             </p>
           </div>
 
+          <Modal
+            title="Sure To Delete?"
+            description={`This task will be removed!`}
+            isOpen={isDeleted}
+            onClose={() => setIsDeleted(false)}
+            submitBtnText="OK"
+            submitHandler={handleOnDelete}
+            isCancelBtn
+          />
+
           {deleteLoading ? (
             <Loading type="button" />
           ) : (
-            <Footer actionType="detail" onClick={handleOnDelete} />
+            <Footer actionType="detail" onClick={() => setIsDeleted(true)} />
           )}
         </>
       )}
