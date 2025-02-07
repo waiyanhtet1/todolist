@@ -13,14 +13,18 @@ import { StatusType } from "../types/taskTypes";
 
 const CreateNewPage = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [startTime, setStartTime] = useState("10:00");
-  const [endTime, setEndTime] = useState("10:00");
-  const [status, setStatus] = useState<StatusType>("todo");
-  const [isNotiOn, setIsNotiOn] = useState(true);
+
+  const [task, setTask] = useState({
+    title: "",
+    text: "",
+    startDate: new Date(),
+    endDate: new Date(),
+    startTime: "10:00",
+    endTime: "10:00",
+    status: "todo" as StatusType,
+    isNotiOn: true,
+  });
+
   const [errorMessage, setErrorMessage] = useState({
     title: false,
     text: false,
@@ -28,22 +32,30 @@ const CreateNewPage = () => {
 
   const [insertTask, { loading, error }] = useMutation(INSERT_TASK);
 
+  const handleInputChange = (field: string, value: string | Date | boolean) => {
+    setTask((prev) => ({ ...prev, [field]: value }));
+    setErrorMessage((prev) => ({ ...prev, [field]: false }));
+  };
+
   const handleOnCreateNew = async () => {
-    if (title.length === 0)
-      setErrorMessage((prev) => ({ ...prev, title: true }));
-    if (text.length === 0) setErrorMessage((prev) => ({ ...prev, text: true }));
-    else {
+    const errors = {
+      title: task.title.trim().length === 0,
+      text: task.text.trim().length === 0,
+    };
+    setErrorMessage(errors);
+
+    if (!errors.title && !errors.text) {
       try {
         await insertTask({
           variables: {
-            title,
-            text,
-            startDate,
-            startTime,
-            endDate,
-            endTime,
-            status,
-            notification: isNotiOn,
+            title: task.title,
+            text: task.text,
+            startDate: task.startDate,
+            startTime: task.startTime,
+            endDate: task.endDate,
+            endTime: task.endTime,
+            status: task.status,
+            notification: task.isNotiOn,
           },
           refetchQueries: [GET_TASK_LIST],
         });
@@ -56,30 +68,15 @@ const CreateNewPage = () => {
 
   if (error) return "error";
 
-  console.log("startDate", startDate);
-  console.log("startTime", startTime);
-  console.log("endDate", endDate);
-  console.log("endTime", endTime);
-  console.log("title", title);
-  console.log("text", text);
-  console.log("status", status);
-  console.log("isNotiOn", isNotiOn);
-
   return (
     <div className="relative h-screen overflow-hidden">
       <Header />
       <div className="flex flex-col gap-9 px-5 py-4 bg-neutral-50 overflow-scroll h-[83%] no-scrollbar">
         <TodoInput
-          title={title}
-          setTitle={(value) => {
-            setTitle(value);
-            setErrorMessage((prev) => ({ ...prev, title: false }));
-          }}
-          text={text}
-          setText={(value) => {
-            setText(value);
-            setErrorMessage((prev) => ({ ...prev, text: false }));
-          }}
+          title={task.title}
+          setTitle={(value) => handleInputChange("title", value)}
+          text={task.text}
+          setText={(value) => handleInputChange("text", value)}
         />
         <div className="mt-[-30px]">
           {errorMessage.title && (
@@ -91,18 +88,21 @@ const CreateNewPage = () => {
         </div>
 
         <DateTimeInput
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate}
-          setEndDate={setEndDate}
-          startTime={startTime}
-          setStartTime={setStartTime}
-          endTime={endTime}
-          setEndTime={setEndTime}
-          status={status}
-          setStatus={setStatus}
+          startDate={task.startDate}
+          setStartDate={(value) => handleInputChange("startDate", value)}
+          endDate={task.endDate}
+          setEndDate={(value) => handleInputChange("endDate", value)}
+          startTime={task.startTime}
+          setStartTime={(value) => handleInputChange("startTime", value)}
+          endTime={task.endTime}
+          setEndTime={(value) => handleInputChange("endTime", value)}
+          status={task.status}
+          setStatus={(value) => handleInputChange("status", value)}
         />
-        <NotificationControl isNotiOn={isNotiOn} setIsNotiOn={setIsNotiOn} />
+        <NotificationControl
+          isNotiOn={task.isNotiOn}
+          setIsNotiOn={(value) => handleInputChange("isNotiOn", value)}
+        />
       </div>
       {loading ? (
         <Loading type="button" />

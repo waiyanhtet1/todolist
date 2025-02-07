@@ -1,15 +1,20 @@
 import { ChevronLeft, FilePen } from "lucide-react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../utils/utils";
 
 const Header = () => {
   const { pathname } = useLocation();
-  const { id } = useParams();
   const navigate = useNavigate();
 
   const handleNavigateBack = () => {
     navigate(-1);
   };
+
+  function nameOfHeader() {
+    if (pathname === "/new") return "New Task";
+    else if (pathname.includes("/update")) return "Edit Task";
+    else return "Task Detail";
+  }
 
   return (
     <div
@@ -20,11 +25,13 @@ const Header = () => {
       <p className="cursor-pointer" onClick={handleNavigateBack}>
         <ChevronLeft />
       </p>
-      <p className="text-neutral-text font-medium">
-        {pathname === "/new" && "New Task"}
-        {id && "Task Detail"}
-      </p>
-      <p className={`cursor-pointer ${pathname === "/new" && "invisible"}`}>
+      <p className="text-neutral-text font-medium">{nameOfHeader()}</p>
+      <p
+        className={`cursor-pointer ${
+          (pathname === "/new" || pathname.includes("/update")) && "invisible"
+        }`}
+        onClick={() => navigate("update")}
+      >
         <FilePen />
       </p>
     </div>

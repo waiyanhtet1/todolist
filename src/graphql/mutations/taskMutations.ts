@@ -43,3 +43,33 @@ export const UPDATE_TASK_STATUS = gql`
     }
   }
 `;
+
+export const UPDATE_TASK = gql`
+  mutation UPDATE_TASK(
+    $id: uuid!
+    $title: String!
+    $text: String!
+    $startDate: date!
+    $endDate: String!
+    $startTime: String!
+    $endTime: String!
+    $status: String!
+    $notification: Boolean!
+  ) {
+    update_task_by_pk(
+      pk_columns: { id: $id }
+      _set: {
+        title: $title
+        text: $text
+        startDate: $startDate
+        endDate: $endDate
+        startTime: $startTime
+        endTime: $endTime
+        status: $status
+        notification: $notification
+      }
+    ) {
+      id
+    }
+  }
+`;
