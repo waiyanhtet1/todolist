@@ -10,6 +10,7 @@ export const INSERT_TASK = gql`
     $endTime: String!
     $status: String!
     $notification: Boolean!
+    $user_id: uuid!
   ) {
     insert_task(
       objects: {
@@ -21,6 +22,7 @@ export const INSERT_TASK = gql`
         endTime: $endTime
         status: $status
         notification: $notification
+        user_id: $user_id
       }
     ) {
       affected_rows
@@ -55,6 +57,7 @@ export const UPDATE_TASK = gql`
     $endTime: String!
     $status: String!
     $notification: Boolean!
+    $user_id: uuid!
   ) {
     update_task_by_pk(
       pk_columns: { id: $id }
@@ -67,6 +70,7 @@ export const UPDATE_TASK = gql`
         endTime: $endTime
         status: $status
         notification: $notification
+        user_id: $user_id
       }
     ) {
       id

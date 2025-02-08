@@ -53,6 +53,6 @@ export const getLoginUserProfile = () => {
 
   if (token) {
     const result: GoogleUser = jwtDecode(token);
-    return result.picture;
+    return result;
   }
 };

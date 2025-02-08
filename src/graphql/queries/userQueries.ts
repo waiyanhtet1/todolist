@@ -9,3 +9,13 @@ export const GET_IS_USER_EXIT = gql`
     }
   }
 `;
+
+export const GET_USER_ID = gql`
+  query GET_USER_ID($email: String!) {
+    user_aggregate(where: { email: { _eq: $email } }) {
+      nodes {
+        id
+      }
+    }
+  }
+`;

@@ -40,16 +40,19 @@ const TodoCard = ({ status, text, title, id }: TodoCardProps) => {
 
   return (
     <div
-      onClick={() => navigate(`/${id}`)}
+      // onClick={() => navigate(`/${id}`)}
       className={cn(
-        "bg-base-white border-l-4 shadow-medium p-4 rounded-sm cursor-pointer",
+        "bg-base-white border-l-4 shadow-medium p-4 rounded-sm",
         status === "todo" && "border-border-strong",
         status === "processing" && "border-primary",
         status === "complete" && "border-success"
       )}
     >
       <div className="flex items-baseline justify-between">
-        <div className="flex items-baseline gap-2">
+        <div
+          className="flex items-baseline gap-2 cursor-pointer"
+          onClick={() => navigate(`/${id}`)}
+        >
           <DiamondSquare variant={status} />
           <div className="flex flex-col gap-1">
             <p className="text-neutral-text">{title}</p>

@@ -9,11 +9,13 @@ import NotificationControl from "../components/NotificationControl";
 import TodoInput from "../components/TodoInput";
 import { UPDATE_TASK } from "../graphql/mutations/taskMutations";
 import { GET_SINGLE_TASK, GET_TASK_LIST } from "../graphql/queries/taskQueries";
+import useUserInfo from "../hooks/useUserInfo";
 import { StatusType } from "../types/taskTypes";
 
 const UpdatePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { userId, error: userError } = useUserInfo();
 
   const [task, setTask] = useState({
     title: "",
@@ -89,6 +91,7 @@ const UpdatePage = () => {
           endTime: task.endTime,
           status: task.status,
           notification: task.isNotiOn,
+          user_id: userId,
         },
         refetchQueries: [GET_TASK_LIST],
       });
@@ -96,7 +99,7 @@ const UpdatePage = () => {
     }
   };
 
-  if (error || updateError) return "Error";
+  if (error || updateError || userError) return "Error";
 
   return (
     <div className="relative h-screen overflow-hidden">

@@ -1,14 +1,14 @@
 import userProfile from "../../public/img/user.png";
 
 import { googleLogout } from "@react-oauth/google";
-import { ChevronDown, Filter, Menu, Search } from "lucide-react";
+import { ChevronDown, Filter, LogOut, Menu, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getLoginUserProfile } from "../utils/utils";
 import WeekDayFilter from "./WeekDayFilter";
 
 const Navbar = () => {
-  const profileImg = getLoginUserProfile();
+  const userInfo = getLoginUserProfile();
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -48,9 +48,10 @@ const Navbar = () => {
         <div className="flex items-center gap-5">
           <Filter />
           <Search />
+
           <div className="relative" onClick={() => setIsOpen((prev) => !prev)}>
             <img
-              src={profileImg || userProfile}
+              src={userInfo?.picture || userProfile}
               alt=""
               className="w[35px] h-[35px] object-contain rounded-full cursor-pointer"
             />
@@ -64,6 +65,11 @@ const Navbar = () => {
               </div>
             )}
           </div>
+          <LogOut
+            color="red"
+            className="cursor-pointer"
+            onClick={logoutHandler}
+          />
         </div>
       </div>
 
