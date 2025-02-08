@@ -8,8 +8,7 @@ import "./index.css";
 
 const apolloClient = createApolloClient();
 
-const clientId =
-  "396838489032-l3sf4aiu946ll7os1rt5rlrglha5ov4r.apps.googleusercontent.com";
+const clientId = import.meta.env.VITE_CLIENT_ID;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
