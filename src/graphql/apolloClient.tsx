@@ -4,7 +4,7 @@ import { onError } from "@apollo/client/link/error";
 import authStorage from "../utils/authStorage";
 
 const httpLink = createHttpLink({
-  uri: "https://todolistapp.hasura.app/v1/graphql",
+  uri: import.meta.env.VITE_HASURA_URL,
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -30,9 +30,7 @@ const createApolloClient = () => {
       return {
         headers: {
           ...headers,
-          "x-hasura-admin-secret":
-            "6fc9zjJmhGQtgDfTqChe32xRgswhzHTXsoPvaA2Vm8nk6qpadSRKS3efv54UInVI",
-          // authorization: `Bearer ${localStorage.getItem("token")}`,
+          "x-hasura-admin-secret": import.meta.env.VITE_HASURA_KEY,
         },
       };
     } catch (e) {
