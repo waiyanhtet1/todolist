@@ -1,7 +1,9 @@
 import clsx from "clsx";
 import { format } from "date-fns";
+import { jwtDecode } from "jwt-decode";
 import moment from "moment-timezone";
 import { twMerge } from "tailwind-merge";
+import { GoogleUser } from "../types/taskTypes";
 
 type Input =
   | string
@@ -44,4 +46,13 @@ export const formattedDateString = (date: Date) => {
   return moment(date)
     .tz("Asia/Yangon")
     .format("ddd MMM DD YYYY HH:mm:ss [GMT]Z (z)");
+};
+
+export const getLoginUserProfile = () => {
+  const token = window.localStorage.getItem("token");
+
+  if (token) {
+    const result: GoogleUser = jwtDecode(token);
+    return result.picture;
+  }
 };

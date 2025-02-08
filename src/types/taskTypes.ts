@@ -11,3 +11,9 @@ export type TaskType = {
 };
 
 export type StatusType = "todo" | "processing" | "complete";
+
+export interface GoogleUser {
+  name?: string;
+  email?: string;
+  picture?: string;
+}
